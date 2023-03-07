@@ -33,7 +33,7 @@ public class DialogueReloadListener extends SimpleJsonResourceReloadListener {
             var id = entry.getKey();
             var json = entry.getValue();
             try {
-                var dialogue = Dialogue.CODEC.decode(JsonOps.INSTANCE, json)
+                var dialogue = Dialogue.codec(id).decode(JsonOps.INSTANCE, json)
                         .getOrThrow(false, LOGGER::error)
                         .getFirst();
                 map.put(id, dialogue);

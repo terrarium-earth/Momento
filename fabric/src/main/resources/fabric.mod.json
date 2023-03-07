@@ -9,7 +9,14 @@
     "license": "All Rights Reserved",
     "icon": "icon.png",
     "environment": "*",
-    "entrypoints": {},
+    "entrypoints": {
+        "main": [
+            "earth.terrarium.momento.fabric.MomentoFabric"
+        ],
+        "client": [
+            "earth.terrarium.momento.fabric.MomentoFabricClient"
+        ]
+    },
     "mixins": [
         "momento.mixins.json",
         "momento-common.mixins.json"
