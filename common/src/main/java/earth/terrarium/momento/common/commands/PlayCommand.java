@@ -13,7 +13,7 @@ public class PlayCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher, Commands.CommandSelection environment, CommandBuildContext context) {
         dispatcher.register(Commands.literal("dialogue")
             .then(Commands.argument("target", EntityArgument.players())
-                .then(Commands.argument("dialogue", ResourceLocationArgument.id())
+                .then(Commands.argument("dialogue", ResourceLocationArgument.id()).suggests(DialogueArgument.SUGGEST_DIALOGUE)
                     .executes(context1 -> {
                         Dialogue dialogue = DialogueArgument.getDialogue(context1, "dialogue");
                         EntityArgument.getPlayers(context1, "target").forEach(dialogue::play);

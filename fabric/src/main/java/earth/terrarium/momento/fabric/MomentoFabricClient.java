@@ -1,7 +1,12 @@
 package earth.terrarium.momento.fabric;
 
+import com.teamresourceful.resourcefullib.common.color.Color;
 import earth.terrarium.momento.client.MomentoClient;
+import earth.terrarium.momento.client.display.DisplayRenderer;
+import earth.terrarium.momento.client.handlers.DialogueHandler;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.resources.ResourceLocation;
@@ -15,6 +20,7 @@ import java.util.concurrent.Executor;
 public class MomentoFabricClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
+        Color.initRainbow();
         MomentoClient.registerClientReloadListener((id, listener) -> {
             ResourceManagerHelper.get(PackType.CLIENT_RESOURCES)
                     .registerReloadListener(new IdentifiableResourceReloadListener() {
@@ -29,5 +35,7 @@ public class MomentoFabricClient implements ClientModInitializer {
                         }
                     });
         });
+        HudRenderCallback.EVENT.register((stack, partialTicks) -> DisplayRenderer.render(partialTicks, stack));
+        ClientTickEvents.END_CLIENT_TICK.register(client -> DialogueHandler.checkDialogue());
     }
 }

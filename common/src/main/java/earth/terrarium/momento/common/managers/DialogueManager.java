@@ -4,6 +4,7 @@ import earth.terrarium.momento.api.Dialogue;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,5 +20,9 @@ public final class DialogueManager {
     @Nullable
     public static Dialogue get(ResourceLocation id) {
         return DIALOGUES.get(id);
+    }
+
+    public static Collection<ResourceLocation> getDialogueIds() {
+        return DIALOGUES.keySet();
     }
 }
