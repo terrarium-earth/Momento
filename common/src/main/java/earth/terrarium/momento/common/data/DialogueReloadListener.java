@@ -1,9 +1,9 @@
 package earth.terrarium.momento.common.data;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.JsonOps;
+import com.teamresourceful.resourcefullib.common.lib.Constants;
 import earth.terrarium.momento.Momento;
 import earth.terrarium.momento.api.Dialogue;
 import earth.terrarium.momento.common.managers.DialogueManager;
@@ -20,10 +20,9 @@ import java.util.Map;
 public class DialogueReloadListener extends SimpleJsonResourceReloadListener {
 
     private static final Logger LOGGER = LogUtils.getLogger();
-    private static final Gson GSON = new Gson();
 
     public DialogueReloadListener() {
-        super(GSON, Momento.MOD_ID + "/dialogue");
+        super(Constants.GSON, Momento.MOD_ID + "/dialogue");
     }
 
     @Override

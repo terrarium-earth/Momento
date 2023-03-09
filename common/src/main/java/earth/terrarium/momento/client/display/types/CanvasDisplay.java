@@ -5,6 +5,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.teamresourceful.resourcefullib.common.color.Color;
 import com.teamresourceful.resourcefullib.common.color.ConstantColors;
+import earth.terrarium.momento.api.SidedValue;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
@@ -14,15 +15,15 @@ import net.minecraft.util.FormattedCharSequence;
 
 import java.util.List;
 
-public record CanvasDisplay(Color color, int alpha, int width, int padding) implements DialogueDisplay {
+public record CanvasDisplay(Color color, int alpha, int width, SidedValue padding) implements DialogueDisplay {
 
-    public static final CanvasDisplay DEFAULT = new CanvasDisplay(ConstantColors.black, 128, 50, 10);
+    public static final CanvasDisplay DEFAULT = new CanvasDisplay(ConstantColors.black, 128, 50, new SidedValue(10));
 
     public static final Codec<CanvasDisplay> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Color.CODEC.fieldOf("color").forGetter(CanvasDisplay::color),
             Codec.intRange(0, 255).fieldOf("alpha").orElse(128).forGetter(CanvasDisplay::width),
             Codec.intRange(0, 100).fieldOf("width").forGetter(CanvasDisplay::width),
-            Codec.INT.fieldOf("padding").forGetter(CanvasDisplay::padding)
+            SidedValue.CODEC.fieldOf("padding").forGetter(CanvasDisplay::padding)
     ).apply(instance, CanvasDisplay::new));
 
     @Override
@@ -42,7 +43,7 @@ public record CanvasDisplay(Color color, int alpha, int width, int padding) impl
         List<FormattedCharSequence> lines = ComponentRenderUtils.wrapComponents(formattedText, fullWidth, font);
         int height = lines.size() * font.lineHeight;
 
-        GuiComponent.fill(stack, xPos - padding, screenHeight - (height + padding), xPos + fullWidth + padding, screenHeight + padding, getColor());
+        GuiComponent.fill(stack, xPos - padding.left(), screenHeight - (height + padding.top()), xPos + fullWidth + padding.right(), screenHeight + padding.bottom(), getColor());
         for (FormattedCharSequence line : lines) {
             font.drawShadow(stack, line, xPos, screenHeight - height, 0xFFFFFF);
             height -= font.lineHeight;
