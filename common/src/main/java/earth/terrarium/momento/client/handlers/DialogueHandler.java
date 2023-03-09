@@ -8,6 +8,7 @@ import earth.terrarium.momento.common.managers.DialogueManager;
 import earth.terrarium.momento.common.managers.SrtManager;
 import earth.terrarium.momento.common.srt.SrtFile;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 
@@ -36,7 +37,7 @@ public class DialogueHandler {
                 instance.resolve(Minecraft.getInstance().getSoundManager()); //Need this or else the line below will break
                 if (instance.getSound().shouldStream()) {
                     LOGGER.error("Dialogue {} is a stream, which is not supported", id);
-                } else {
+                } else if (instance.getSound() != SoundManager.EMPTY_SOUND) {
                     DialogueHandler.queue.add(instance);
                     queuedIds.add(id);
                     checkQueue();
@@ -60,6 +61,11 @@ public class DialogueHandler {
             stop();
             return;
         }
+        if (currentDialogue != null) {
+            Minecraft.getInstance().getSoundManager().stop(currentDialogue);
+            currentDialogue.stopInternal();
+        }
+
         currentDialogue = queue.poll();
         queuedIds.remove(currentDialogue.dialogue().id());
         Minecraft.getInstance().getSoundManager().play(currentDialogue);

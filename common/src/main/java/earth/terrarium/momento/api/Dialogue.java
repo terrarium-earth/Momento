@@ -5,13 +5,15 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import earth.terrarium.momento.client.display.types.CanvasDisplay;
 import earth.terrarium.momento.client.display.types.DialogueDisplay;
 import earth.terrarium.momento.client.display.types.Displays;
-import earth.terrarium.momento.common.network.NetworkHandler;
-import earth.terrarium.momento.common.network.packets.client.DialoguePacket;
+import earth.terrarium.momento.common.items.PlayerIcon;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.entity.player.Player;
 
-public record Dialogue(ResourceLocation id, SoundEvent sound, float volume, ResourceLocation srt, DialogueDisplay display) {
+public record Dialogue(
+        ResourceLocation id,
+        SoundEvent sound, float volume,
+        ResourceLocation srt,
+        DialogueDisplay display, PlayerIcon icon) {
 
     public static Codec<Dialogue> codec(ResourceLocation id) {
         return RecordCodecBuilder.create(instance -> instance.group(
@@ -19,11 +21,8 @@ public record Dialogue(ResourceLocation id, SoundEvent sound, float volume, Reso
                 SoundEvent.CODEC.fieldOf("sound").forGetter(Dialogue::sound),
                 Codec.FLOAT.fieldOf("volume").forGetter(Dialogue::volume),
                 ResourceLocation.CODEC.fieldOf("srt").forGetter(Dialogue::srt),
-                Displays.CODEC.fieldOf("display").orElse(CanvasDisplay.DEFAULT).forGetter(Dialogue::display)
+                Displays.CODEC.fieldOf("display").orElse(CanvasDisplay.DEFAULT).forGetter(Dialogue::display),
+                PlayerIcon.CODEC.fieldOf("icon").orElse(PlayerIcon.BRASS_TAPE_RECORDER).forGetter(Dialogue::icon)
         ).apply(instance, Dialogue::new));
-    }
-
-    public void play(Player player) {
-        NetworkHandler.CHANNEL.sendToPlayer(new DialoguePacket(this.id), player);
     }
 }

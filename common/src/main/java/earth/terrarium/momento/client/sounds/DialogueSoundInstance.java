@@ -113,4 +113,8 @@ public class DialogueSoundInstance extends EntityBoundSoundInstance {
     public Dialogue dialogue() {
         return this.dialogue;
     }
+
+    public void stopInternal() {
+        stop();
+    }
 }

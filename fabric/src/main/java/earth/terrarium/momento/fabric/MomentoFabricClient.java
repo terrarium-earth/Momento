@@ -20,6 +20,7 @@ import java.util.concurrent.Executor;
 public class MomentoFabricClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
+        MomentoClient.init();
         Color.initRainbow();
         MomentoClient.registerClientReloadListener((id, listener) -> {
             ResourceManagerHelper.get(PackType.CLIENT_RESOURCES)

@@ -25,4 +25,8 @@ public final class DialogueManager {
     public static Collection<ResourceLocation> getDialogueIds() {
         return DIALOGUES.keySet();
     }
+
+    public static Collection<Dialogue> getDialogues() {
+        return DIALOGUES.values();
+    }
 }

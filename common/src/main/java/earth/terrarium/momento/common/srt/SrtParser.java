@@ -36,7 +36,7 @@ public final class SrtParser {
     }
 
     public static List<SrtBlock> parse(List<String> lines) throws SrtSyntaxException {
-        List<String> copy = new ArrayList<>(lines);
+        List<String> copy = formatLines(new ArrayList<>(lines));
         copy.add("");
         List<SrtBlock> sections = new ArrayList<>();
         int i = 0;
@@ -87,5 +87,9 @@ public final class SrtParser {
                 Integer.parseInt(matcher.group("esc")) * 1000 +
                 Integer.parseInt(matcher.group("emm"));
         return new SrtTime(start, end);
+    }
+
+    private static List<String> formatLines(List<String> lines) {
+        return lines.get(lines.size() - 1).isBlank() ? formatLines(lines.subList(0, lines.size() - 1)) : lines;
     }
 }

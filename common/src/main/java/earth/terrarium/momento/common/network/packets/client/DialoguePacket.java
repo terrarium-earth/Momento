@@ -5,8 +5,10 @@ import com.teamresourceful.resourcefullib.common.networking.base.PacketContext;
 import com.teamresourceful.resourcefullib.common.networking.base.PacketHandler;
 import earth.terrarium.momento.Momento;
 import earth.terrarium.momento.client.handlers.DialogueHandler;
+import earth.terrarium.momento.common.network.NetworkHandler;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
 
 public record DialoguePacket(ResourceLocation id) implements Packet<DialoguePacket> {
 
@@ -21,6 +23,10 @@ public record DialoguePacket(ResourceLocation id) implements Packet<DialoguePack
     @Override
     public PacketHandler<DialoguePacket> getHandler() {
         return HANDLER;
+    }
+
+    public static void play(Player player, ResourceLocation id) {
+        NetworkHandler.CHANNEL.sendToPlayer(new DialoguePacket(id), player);
     }
 
     private static class Handler implements PacketHandler<DialoguePacket> {
