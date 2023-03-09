@@ -18,9 +18,7 @@ public class MomentoFabric implements ModInitializer {
     public void onInitialize() {
         Momento.init();
 
-        CommandRegistrationCallback.EVENT.register((dispatcher, access, env) -> {
-            Commands.register(dispatcher, env, access);
-        });
+        CommandRegistrationCallback.EVENT.register((dispatcher, access, env) -> Commands.register(dispatcher));
 
         FabricItemGroupBuilder.create(new ResourceLocation(Momento.MOD_ID, "itemgroup"))
                 .icon(() -> new ItemStack(Momento.PLAYER.get()))

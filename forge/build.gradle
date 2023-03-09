@@ -21,7 +21,6 @@ dependencies {
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
 
     modApi "com.teamresourceful.resourcefullib:resourcefullib-forge-$rootProject.minecraft_version:$rootProject.resourcefullib_version"
-    modApi "com.teamresourceful.resourcefulconfig:resourcefulconfig-forge-$rootProject.minecraft_version:$rootProject.resourcefulconfig_version"
 }
 
 processResources {

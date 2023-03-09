@@ -1,7 +1,9 @@
 package earth.terrarium.momento.client;
 
+import com.teamresourceful.resourcefullib.common.color.Color;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import earth.terrarium.momento.Momento;
+import earth.terrarium.momento.common.commands.DialogueArgument;
 import earth.terrarium.momento.common.data.DialogueReloadListener;
 import earth.terrarium.momento.common.data.SrtReloadListener;
 import earth.terrarium.momento.common.items.PlayerItem;
@@ -20,6 +22,8 @@ import java.util.function.BiConsumer;
 public class MomentoClient {
 
     public static void init() {
+        Color.initRainbow();
+        DialogueArgument.init();
         registerProperty(Momento.PLAYER.get(), new ResourceLocation(Momento.MOD_ID, "type"),
                 (ItemStack stack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity, int i) ->
                         PlayerItem.getIcon(stack).getValue());

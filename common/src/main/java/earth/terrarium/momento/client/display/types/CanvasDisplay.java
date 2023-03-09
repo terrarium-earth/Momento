@@ -15,15 +15,16 @@ import net.minecraft.util.FormattedCharSequence;
 
 import java.util.List;
 
-public record CanvasDisplay(Color color, int alpha, int width, SidedValue padding) implements DialogueDisplay {
+public record CanvasDisplay(Color color, int alpha, int width, SidedValue padding, SidedValue margin) implements DialogueDisplay {
 
-    public static final CanvasDisplay DEFAULT = new CanvasDisplay(ConstantColors.black, 128, 50, new SidedValue(10));
+    public static final CanvasDisplay DEFAULT = new CanvasDisplay(ConstantColors.black, 128, 50, new SidedValue(10), new SidedValue(-80, 0, 0, 0));
 
     public static final Codec<CanvasDisplay> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Color.CODEC.fieldOf("color").forGetter(CanvasDisplay::color),
             Codec.intRange(0, 255).fieldOf("alpha").orElse(128).forGetter(CanvasDisplay::width),
             Codec.intRange(0, 100).fieldOf("width").forGetter(CanvasDisplay::width),
-            SidedValue.CODEC.fieldOf("padding").forGetter(CanvasDisplay::padding)
+            SidedValue.CODEC.fieldOf("padding").forGetter(CanvasDisplay::padding),
+            SidedValue.CODEC.fieldOf("margin").orElse(new SidedValue(-80, 0, 0, 0)).forGetter(CanvasDisplay::padding)
     ).apply(instance, CanvasDisplay::new));
 
     @Override
@@ -36,9 +37,9 @@ public record CanvasDisplay(Color color, int alpha, int width, SidedValue paddin
         final Font font = minecraft.font;
         int screenWidth = minecraft.getWindow().getGuiScaledWidth();
         int screenHeight = minecraft.getWindow().getGuiScaledHeight();
-        screenHeight -= 90;
-        int fullWidth = (int)(screenWidth * (width / 100f));
-        int xPos = (int)((screenWidth / 2f) - (fullWidth / 2f));
+        screenHeight += this.margin.top() + this.margin.bottom();
+        int fullWidth = (int) (screenWidth * (width / 100f));
+        int xPos = (int) ((screenWidth / 2f) - (fullWidth / 2f)) + this.margin.left() + this.margin.right();
         FormattedText formattedText = text.stream().map(FormattedText::of).reduce(FormattedText::composite).orElse(FormattedText.EMPTY);
         List<FormattedCharSequence> lines = ComponentRenderUtils.wrapComponents(formattedText, fullWidth, font);
         int height = lines.size() * font.lineHeight;

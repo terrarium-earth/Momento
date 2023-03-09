@@ -26,7 +26,7 @@ public record TextureDisplay(
             TextureData.CODEC.fieldOf("background").forGetter(TextureDisplay::background),
             TextureData.CODEC.fieldOf("bottom").forGetter(TextureDisplay::bottom),
             SidedValue.CODEC.fieldOf("padding").orElse(new SidedValue(0)).forGetter(TextureDisplay::padding),
-            SidedValue.CODEC.fieldOf("margin").orElse(new SidedValue(-90, 0, 0, 0)).forGetter(TextureDisplay::padding),
+            SidedValue.CODEC.fieldOf("margin").orElse(new SidedValue(-80, 0, 0, 0)).forGetter(TextureDisplay::padding),
             StaticText.CODEC.optionalFieldOf("text").forGetter(TextureDisplay::text)
     ).apply(instance, TextureDisplay::new));
 
