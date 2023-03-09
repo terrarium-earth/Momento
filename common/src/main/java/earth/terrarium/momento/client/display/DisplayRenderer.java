@@ -15,6 +15,7 @@ public class DisplayRenderer {
 
     public static void render(float partialTicks, PoseStack stack) {
         if (dialogue == null) return;
+        if (BLOCKS.isEmpty()) return;
         dialogue.dialogue().display().render(Minecraft.getInstance(), partialTicks, stack, BLOCKS);
     }
 

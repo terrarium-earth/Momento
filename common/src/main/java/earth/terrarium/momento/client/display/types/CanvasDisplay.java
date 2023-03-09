@@ -32,7 +32,6 @@ public record CanvasDisplay(Color color, int alpha, int width, int padding) impl
 
     @Override
     public void render(Minecraft minecraft, float partialTicks, PoseStack stack, List<String> text) {
-        if (text.isEmpty()) return;
         final Font font = minecraft.font;
         int screenWidth = minecraft.getWindow().getGuiScaledWidth();
         int screenHeight = minecraft.getWindow().getGuiScaledHeight();

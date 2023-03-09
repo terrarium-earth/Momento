@@ -13,7 +13,7 @@ public class Momento {
 
     public static final ResourcefulRegistry<Item> ITEMS = ResourcefulRegistries.create(Registry.ITEM, MOD_ID);
 
-    public static final RegistryEntry<Item> PLAYER = ITEMS.register("player", () -> new PlayerItem(new Item.Properties()));
+    public static final RegistryEntry<Item> PLAYER = ITEMS.register("player", () -> new PlayerItem(new Item.Properties().stacksTo(1)));
 
     public static void init() {
         NetworkHandler.init();

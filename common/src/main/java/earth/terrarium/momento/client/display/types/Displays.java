@@ -9,6 +9,7 @@ public class Displays {
     private static Codec<? extends DialogueDisplay> get(String id) {
         return switch (id) {
             case "canvas" -> CanvasDisplay.CODEC;
+            case "texture" -> TextureDisplay.CODEC;
             default -> throw new IllegalArgumentException("Unknown display type: " + id);
         };
     }
