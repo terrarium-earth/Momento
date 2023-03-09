@@ -17,14 +17,14 @@ import java.util.List;
 
 public record CanvasDisplay(Color color, int alpha, int width, SidedValue padding, SidedValue margin) implements DialogueDisplay {
 
-    public static final CanvasDisplay DEFAULT = new CanvasDisplay(ConstantColors.black, 128, 50, new SidedValue(10), new SidedValue(-80, 0, 0, 0));
+    public static final CanvasDisplay DEFAULT = new CanvasDisplay(ConstantColors.black, 128, 50, new SidedValue(10), new SidedValue(0, -80, 0, 0));
 
     public static final Codec<CanvasDisplay> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Color.CODEC.fieldOf("color").orElse(ConstantColors.black).forGetter(CanvasDisplay::color),
             Codec.intRange(0, 255).fieldOf("alpha").orElse(128).forGetter(CanvasDisplay::width),
             Codec.intRange(0, 100).fieldOf("width").orElse(50).forGetter(CanvasDisplay::width),
             SidedValue.CODEC.fieldOf("padding").orElse(new SidedValue(10)).forGetter(CanvasDisplay::padding),
-            SidedValue.CODEC.fieldOf("margin").orElse(new SidedValue(-80, 0, 0, 0)).forGetter(CanvasDisplay::padding)
+            SidedValue.CODEC.fieldOf("margin").orElse(new SidedValue(0, -80, 0, 0)).forGetter(CanvasDisplay::padding)
     ).apply(instance, CanvasDisplay::new));
 
     @Override
