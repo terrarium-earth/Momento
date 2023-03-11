@@ -75,6 +75,7 @@ public class DialogueHandler {
 
     private static void stop() {
         if (currentDialogue != null) {
+            Minecraft.getInstance().getSoundManager().stop(currentDialogue);
             currentDialogue = null;
             DisplayRenderer.set(null);
         }
