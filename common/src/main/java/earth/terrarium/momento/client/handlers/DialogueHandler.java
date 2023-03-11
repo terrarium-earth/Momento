@@ -2,6 +2,7 @@ package earth.terrarium.momento.client.handlers;
 
 import com.mojang.logging.LogUtils;
 import earth.terrarium.momento.api.Dialogue;
+import earth.terrarium.momento.client.MomentoClient;
 import earth.terrarium.momento.client.display.DisplayRenderer;
 import earth.terrarium.momento.client.sounds.DialogueSoundInstance;
 import earth.terrarium.momento.common.managers.DialogueManager;
@@ -56,7 +57,7 @@ public class DialogueHandler {
         }
     }
 
-    private static void playNext() {
+    public static void playNext() {
         if (queue.isEmpty()) {
             stop();
             return;
@@ -79,7 +80,10 @@ public class DialogueHandler {
         }
     }
 
-    public static void checkDialogue() {
+    public static void dialogueTick() {
+        if (currentDialogue != null && MomentoClient.KEY.consumeClick()) {
+            currentDialogue.jumpToNextBlock();
+        }
         if (currentDialogue != null && (currentDialogue.isStopped() || currentDialogue.isNotPlaying())) {
             stop();
         }

@@ -1,7 +1,7 @@
 package earth.terrarium.momento.common.items;
 
 import com.mojang.serialization.Codec;
-import com.teamresourceful.resourcefullib.common.codecs.EnumCodec;
+import com.mojang.serialization.DataResult;
 
 import java.util.Locale;
 
@@ -12,7 +12,15 @@ public enum PlayerIcon {
     WOODEN_RADIO(0.4f),
     PURPLE_PHONOGRAPH(0.5f);
 
-    public static final Codec<PlayerIcon> CODEC = EnumCodec.of(PlayerIcon.class);
+    public static final Codec<PlayerIcon> CODEC = Codec.STRING.comapFlatMap(
+            s -> {
+                try {
+                    return DataResult.success(PlayerIcon.valueOf(s.toUpperCase(Locale.ROOT)));
+                } catch (Exception e) {
+                    return DataResult.error("Unknown PlayerIcon: " + s);
+                }
+            },
+            PlayerIcon::name);
 
     private final float value;
 

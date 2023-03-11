@@ -8,7 +8,7 @@ import earth.terrarium.momento.common.managers.DialogueManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
-import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -18,7 +18,7 @@ public class MomentoFabric implements ModInitializer {
     public void onInitialize() {
         Momento.init();
 
-        CommandRegistrationCallback.EVENT.register((dispatcher, access, env) -> Commands.register(dispatcher));
+        CommandRegistrationCallback.EVENT.register((dispatcher, ignored) -> Commands.register(dispatcher));
 
         FabricItemGroupBuilder.create(new ResourceLocation(Momento.MOD_ID, "itemgroup"))
                 .icon(() -> new ItemStack(Momento.PLAYER.get()))

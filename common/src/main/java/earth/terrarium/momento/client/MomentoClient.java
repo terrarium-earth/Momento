@@ -1,5 +1,6 @@
 package earth.terrarium.momento.client;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import com.teamresourceful.resourcefullib.common.color.Color;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import earth.terrarium.momento.Momento;
@@ -7,6 +8,7 @@ import earth.terrarium.momento.common.commands.DialogueArgument;
 import earth.terrarium.momento.common.data.DialogueReloadListener;
 import earth.terrarium.momento.common.data.SrtReloadListener;
 import earth.terrarium.momento.common.items.PlayerItem;
+import net.minecraft.client.KeyMapping;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.resources.ResourceLocation;
@@ -21,12 +23,15 @@ import java.util.function.BiConsumer;
 
 public class MomentoClient {
 
+    public static final KeyMapping KEY = new KeyMapping("key.momento.dialogue", InputConstants.KEY_Z, "key.categories.misc");
+
     public static void init() {
         Color.initRainbow();
         DialogueArgument.init();
         registerProperty(Momento.PLAYER.get(), new ResourceLocation(Momento.MOD_ID, "type"),
                 (ItemStack stack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity, int i) ->
                         PlayerItem.getIcon(stack).getValue());
+        registerMapping(KEY);
     }
 
     public static void registerClientReloadListener(BiConsumer<ResourceLocation, PreparableReloadListener> register) {
@@ -36,6 +41,11 @@ public class MomentoClient {
 
     @ExpectPlatform
     public static void registerProperty(Item item, ResourceLocation resourceLocation, ClampedItemPropertyFunction clampedItemPropertyFunction) {
+        throw new NotImplementedException();
+    }
+
+    @ExpectPlatform
+    public static void registerMapping(KeyMapping keyMapping) {
         throw new NotImplementedException();
     }
 }

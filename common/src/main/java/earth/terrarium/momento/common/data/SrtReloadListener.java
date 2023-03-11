@@ -13,6 +13,7 @@ import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,22 +29,22 @@ public class SrtReloadListener extends SimplePreparableReloadListener<Map<Resour
     protected @NotNull Map<ResourceLocation, List<SrtBlock>> prepare(@NotNull ResourceManager manager, @NotNull ProfilerFiller profiler) {
         profiler.startTick();
         final Map<ResourceLocation, List<SrtBlock>> map = new HashMap<>();
-        final var entries = manager.listResources(DIRECTORY, file -> file.getPath().endsWith(FILE_EXTENSION)).entrySet();
+        final var entries = manager.listResources(DIRECTORY, file -> file.endsWith(FILE_EXTENSION));
 
-        for (var entry : entries) {
-            var file = entry.getKey();
+        for (var file : entries) {
             var id = new ResourceLocation(file.getNamespace(), file.getPath().substring(DIRECTORY.length() + 1, file.getPath().length() - FILE_EXTENSION.length()));
 
             try {
-                try (var reader = entry.getValue().openAsReader()) {
-                    var data = IOUtils.toString(reader);
+                var resource = manager.getResource(file);
+                try (var stream = resource.getInputStream()) {
+                    var data = IOUtils.toString(stream, StandardCharsets.UTF_8);
                     var srt = SrtParser.parse(data);
                     if (srt.isEmpty()) {
                         LOGGER.error("Couldn't load data file {} from {} as it's null or empty", id, file);
                     } else {
                         var out = map.put(id, srt);
                         if (out != null) {
-                            throw new  IllegalStateException("Duplicate data file ignored with ID {}" + id);
+                            throw new IllegalStateException("Duplicate data file ignored with ID {}" + id);
                         }
                     }
                 }
