@@ -26,7 +26,7 @@ public class MomentoFabricClient implements ClientModInitializer {
                 ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(new FabricListener(id, listener))
         );
         HudRenderCallback.EVENT.register((stack, partialTicks) -> DisplayRenderer.render(partialTicks, stack));
-        ClientTickEvents.END_CLIENT_TICK.register(client -> DialogueHandler.checkDialogue());
+        ClientTickEvents.END_CLIENT_TICK.register(client -> DialogueHandler.dialogueTick());
     }
 
     private record FabricListener(ResourceLocation id, PreparableReloadListener listener) implements IdentifiableResourceReloadListener {

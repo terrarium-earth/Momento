@@ -117,4 +117,17 @@ public class DialogueSoundInstance extends EntityBoundSoundInstance {
     public void stopInternal() {
         stop();
     }
+
+    public void jumpToNextBlock() {
+        if (queuedBlocks.isEmpty()) {
+            DialogueHandler.playNext();
+            return;
+        }
+        SrtBlock block = queuedBlocks.get(0);
+        ChannelAccessor accessor = getChannel();
+        if (accessor != null) {
+            float time = block.time().start() / 1000f;
+            AL11.alSourcef(accessor.getSource(), AL11.AL_SEC_OFFSET, time);
+        }
+    }
 }
