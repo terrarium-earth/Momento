@@ -11,13 +11,14 @@ import net.minecraft.sounds.SoundEvent;
 
 public record Dialogue(
         ResourceLocation id,
-        SoundEvent sound, float volume,
+        String name, SoundEvent sound, float volume,
         ResourceLocation srt,
         DialogueDisplay display, PlayerIcon icon) {
 
     public static Codec<Dialogue> codec(ResourceLocation id) {
         return RecordCodecBuilder.create(instance -> instance.group(
                 RecordCodecBuilder.point(id),
+                Codec.STRING.fieldOf("name").forGetter(Dialogue::name),
                 SoundEvent.CODEC.fieldOf("sound").forGetter(Dialogue::sound),
                 Codec.FLOAT.fieldOf("volume").forGetter(Dialogue::volume),
                 ResourceLocation.CODEC.fieldOf("srt").forGetter(Dialogue::srt),

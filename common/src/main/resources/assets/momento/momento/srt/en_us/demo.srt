@@ -1,0 +1,141 @@
+1
+00:00:00,720 --> 00:00:04,380
+Hello, my name is Adrian, and this
+is a demo for the project Momento.
+
+2
+00:00:05,040 --> 00:00:09,060
+Momento is a tool that allows pack
+makers and mod authors to add audio logs
+
+3
+00:00:09,060 --> 00:00:10,860
+to their mods and mod packs for lore.
+
+4
+00:00:11,490 --> 00:00:15,240
+Right clicking the momento item or
+triggering the /dialogue command
+
+5
+00:00:15,450 --> 00:00:19,020
+will begin the audio playback,
+and a text box will appear on the
+
+6
+00:00:19,020 --> 00:00:22,080
+player screen with subtitles that
+will sync along to the audio.
+
+7
+00:00:22,770 --> 00:00:25,680
+To get started, create a resource
+pack that a Momento will use
+
+8
+00:00:25,680 --> 00:00:26,910
+to create your dialogues.
+
+9
+00:00:27,180 --> 00:00:31,020
+You can use any audio recorder that
+you'd like to make your audio, and then
+
+10
+00:00:31,020 --> 00:00:33,660
+you'll need to export it as a .OGG file.
+
+11
+00:00:34,250 --> 00:00:36,780
+Add this sound like you would
+any other sound and remember the
+
+12
+00:00:36,780 --> 00:00:40,080
+reference to it that you created
+it and your sounds.json file.
+
+13
+00:00:40,770 --> 00:00:43,860
+Next you'll need to create a
+dialogue and subtitle file.
+
+14
+00:00:44,370 --> 00:00:50,459
+The dialogue file must be placed under
+assets/{your modid}/momento/dialogue
+
+15
+00:00:51,000 --> 00:00:53,400
+. It's a JSON file, which you
+can learn how to configure.
+
+16
+00:00:53,400 --> 00:00:57,790
+Over on our Wiki at
+modrinth.com/mod/momento.
+
+17
+00:00:57,810 --> 00:00:59,460
+And clicking the Wiki link.
+
+18
+00:01:00,360 --> 00:01:03,240
+For your subtitle file, you
+can use a tool like Descript to
+
+19
+00:01:03,240 --> 00:01:07,590
+transcribe your audio automatically,
+creating matching subtitles.
+
+20
+00:01:08,700 --> 00:01:18,759
+Export your file as a .SRT file
+and place it in assets/{your modid}/momento/srt/en_us.
+
+22
+00:01:19,500 --> 00:01:22,590
+You can replace en_us with
+whatever language you'd like
+
+23
+00:01:22,590 --> 00:01:23,700
+to create your subtitles in.
+
+24
+00:01:24,810 --> 00:01:27,840
+Add this resource back to your
+resources folder and start your game.
+
+25
+00:01:28,620 --> 00:01:32,040
+In the creative menu, you should
+see a brand new momento item.
+
+26
+00:01:32,970 --> 00:01:34,140
+That's the end of the tutorial.
+
+27
+00:01:34,380 --> 00:01:37,170
+If you have any other questions,
+feel free to stop by our discord
+
+28
+00:01:37,230 --> 00:01:39,240
+at discord.terrarium.earth
+
+29
+00:01:39,940 --> 00:01:42,430
+if you like this mod, please
+consider supporting us on
+
+30
+00:01:42,430 --> 00:01:45,150
+Kofi at kofi.terrarium.earth.
+
+31
+00:01:45,760 --> 00:01:48,027
+Thank you for listening, and I
+hope you enjoy using momento.

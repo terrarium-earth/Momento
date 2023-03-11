@@ -1,16 +1,23 @@
 package earth.terrarium.momento.common.items;
 
 import earth.terrarium.momento.Momento;
+import earth.terrarium.momento.api.Dialogue;
+import earth.terrarium.momento.common.managers.DialogueManager;
 import earth.terrarium.momento.common.network.packets.client.DialoguePacket;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Locale;
 
 public class PlayerItem extends Item {
@@ -24,6 +31,18 @@ public class PlayerItem extends Item {
         stack.getOrCreateTag().putString("Dialogue", id.toString());
         stack.getOrCreateTag().putString("Type", icon.name().toLowerCase(Locale.ROOT));
         return stack;
+    }
+
+    @Override
+    public void appendHoverText(@NotNull ItemStack itemStack, @Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag tooltipFlag) {
+        super.appendHoverText(itemStack, level, list, tooltipFlag);
+        ResourceLocation id = getID(itemStack);
+        if (level != null && id != null) {
+            Dialogue dialogue1 = DialogueManager.get(id);
+            if (dialogue1 != null) {
+                list.add(Component.translatable(dialogue1.name()).withStyle(ChatFormatting.GRAY));
+            }
+        }
     }
 
     @Override
