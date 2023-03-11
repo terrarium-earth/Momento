@@ -40,7 +40,7 @@ public class PlayerItem extends Item {
         if (level != null && id != null) {
             Dialogue dialogue1 = DialogueManager.get(id);
             if (dialogue1 != null) {
-                list.add(Component.translatable(dialogue1.name()).withStyle(ChatFormatting.GRAY));
+                list.add(dialogue1.name().copy().withStyle(ChatFormatting.GRAY));
             }
         }
     }
